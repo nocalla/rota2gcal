@@ -11,11 +11,6 @@
 
 #######################################################
 
-# source_folder = ""
-# cal_name = "Niall's Work Calendar"
-# shared_cal_url = ""
-# person = "Niall"
-# event_location = "Sam McCauley's Chemist, 61-63 McCurtain Street, Fermoy, Co. Cork"
 g_weekdays = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"]
 g_shifts = {
             "9--6": "Early", "10--7": "Middle", "11--8": "Late", 
