@@ -225,45 +225,6 @@ def convert_day(wkstart, day, times):
     
     return output
     
-def write_to_cal(dict, name, t_cal, prefix):
-    cal_details = get_cal_details(t_cal)
-    if cal_details:
-        days = dict[name]        
-        # write events to output file & write to calendar
-        f = open("last_calendar_output.txt", "w")
-        f.write("Calendar details: {}\n".format(cal_details))
-        for day in days:
-            summary = prefix + day[1]
-            startTime = day[0]
-            endTime = day[2]
-            all_day = day[3]
-            timeZone = cal_details[2]
-            cal_id = cal_details[1]
-                        
-            event = {
-              "summary": summary,
-              "start": {
-                "timeZone": timeZone,
-              },
-              "end": {
-                "timeZone": timeZone,
-              },
-            }
-            # processing for all-day events
-            if all_day is True:
-                event["start"]["date"] = startTime
-                event["end"]["date"] = endTime
-            else:
-                event["location"] = event_location
-                event["start"]["dateTime"] = startTime
-                event["end"]["dateTime"] = endTime
-                
-            write_cal_event(event, cal_id)
-            f.write("{}\n".format(day))
-        f.close()
-
-    return
-    
 def get_cal_details(chosen_cal):
     # google calendar api shenanigans!
     # returns [calendar name, id, timezone]
@@ -307,12 +268,49 @@ class Rota_Calendar(object):
     def get_config_line(self, key):
         print("{}: {}".format(key, self.config.get("DEFAULT", key))) # debug
         return self.config.get("DEFAULT", key)
+        
+    def write_to_cal(self, dict, name, t_cal, prefix):
+        cal_details = get_cal_details(t_cal)
+        if cal_details:
+            days = dict[name]        
+            # write events to output file & write to calendar
+            f = open("last_calendar_output.txt", "w")
+            f.write("Calendar details: {}\n".format(cal_details))
+            for day in days:
+                summary = prefix + day[1]
+                startTime = day[0]
+                endTime = day[2]
+                all_day = day[3]
+                timeZone = cal_details[2]
+                cal_id = cal_details[1]
+                            
+                event = {
+                  "summary": summary,
+                  "start": {
+                    "timeZone": timeZone,
+                  },
+                  "end": {
+                    "timeZone": timeZone,
+                  },
+                }
+                # processing for all-day events
+                if all_day is True:
+                    event["start"]["date"] = startTime
+                    event["end"]["date"] = endTime
+                else:
+                    event["location"] = self.event_location
+                    event["start"]["dateTime"] = startTime
+                    event["end"]["dateTime"] = endTime
+                    
+                write_cal_event(event, cal_id)
+                f.write("{}\n".format(day))
+            f.close()
 
     def run(self):
-        print("Person: {}".format(self.person))
         rota_file = get_rota(find_directory(self.source_folder))
         rota_dict = parse_rota(rota_file)
-        #write_to_cal(rota_dict, self.person, self.cal_name, "")
+        self.write_to_cal(rota_dict, self.person, self.cal_name, "")
+        print("Done.")
     
 rota_calendar = Rota_Calendar(get_configs())
 rota_calendar.run()
