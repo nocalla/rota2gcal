@@ -52,6 +52,10 @@ This is how the script gets access to the calendar. You have to set yourself up 
 You're ready to go. 
 
 ## Actual Use
++ Put the timetable file in the Source Folder or download folder
++ Double-click the rota2gcal.bat file to run the script
++ Select the correct file from the list by typing the number and hitting Enter
++ Watch as your calendar magically fills up
 
 ## Spreadsheet Format Details
 
