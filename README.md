@@ -11,13 +11,13 @@ This is a project that uploads a very specific timetable format to Google Calend
 
 ### 2. Download Project
 
-+ Download the latest release from [here](https://github.com/nocalla/rota2gcal/releases). Really all you need is the rota2gcal.py file, but the batch file is useful to run the script quickly on Windows.
++ Download the latest release from [here](https://github.com/nocalla/rota2gcal/releases). Really all you need is the `rota2gcal.py` file, but the batch file is useful to run the script quickly on Windows.
 + Extract the zip file to whatever location on your harddrive makes sense.
 
 ### 3. Install prerequisites
 
 This is where things will get a little difficult if you're not used to the command line.
-+ Open the folder where you've saved the rota2gcal.py file in Explorer
++ Open the folder where you've saved the `rota2gcal.py` file in Explorer
 + Type cmd in the address bar
 + In the terminal window that opens, type the following and hit Enter:
 `pip install -r requirements.txt`
@@ -35,9 +35,9 @@ This is how the script gets access to the calendar. You have to set yourself up 
 
 ### 5. Initialisation
 
-+ Run the script, either by typing `python rota2gcal.py` in a terminal window opened as described above, or by double clicking the rota2gcal.bat file.
++ Run the script, either by typing `python rota2gcal.py` in a terminal window opened as described above, or by double clicking the `rota2gcal.bat` file.
 + You'll get an error, that's okay.
-+ Now, edit the newly-created rota2gcal.conf file - this is where you set the name of the calendar you're writing to, the name of the person whose shifts you're looking for etc. Example configuration below. I'd recommend leaving the Source Folder blank, unless you download the timetable file to somewhere apart from the default Downloads folder on Windows. The Shared Calendar URL can be ignored too.
++ Now, edit the newly-created `rota2gcal.conf` file - this is where you set the name of the calendar you're writing to, the name of the person whose shifts you're looking for etc. Example configuration below. I'd recommend leaving the Source Folder blank, unless you download the timetable file to somewhere apart from the default Downloads folder on Windows. The Shared Calendar URL can be ignored too.
 ```
     [DEFAULT]
     Source Folder = 
@@ -54,7 +54,7 @@ You're ready to go.
 
 ## Actual Use
 + Put the timetable file in the Source Folder or download folder
-+ Double-click the rota2gcal.bat file to run the script
++ Double-click the `rota2gcal.bat` file to run the script or run it from the command line
 + Select the correct file from the list by typing the number and hitting Enter
 + Watch as your calendar magically fills up
 
