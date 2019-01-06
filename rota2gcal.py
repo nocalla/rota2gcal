@@ -73,10 +73,14 @@ def get_credentials(): # Google Calendar API Credential stuff - don"t mess with!
         print("Storing credentials to " + credential_path)
     return credentials
 
-# end of Google API Stuff
+# end of Google credentials Stuff
 
 def get_configs():
-    """ Retrieve all configuration parameters."""
+    """ Retrieve all configuration parameters.
+    
+    Returns:
+        config, the obtained configparser object
+    """
     conf_files = ["rota2gcal.conf"]
     if not os.path.exists("rota2gcal.conf"):
         logging.error("\nError: Can't find configuration file: rota2gcal.conf")
@@ -86,6 +90,9 @@ def get_configs():
 
 def find_directory(filepath):
     """ finds the downloads folder for the active user if filepath is not set
+        
+    Returns:
+        input_dir, the target download directory
     """
     if filepath is "":
         if os.name is "nt":
@@ -111,7 +118,11 @@ def find_directory(filepath):
     return input_dir
 
 def get_rota(dir):
-    # gets list of excel files in downloads directory & allows choice
+    """ gets list of excel files in downloads directory & allows choice
+    
+    Returns:
+        f, the chosen file's full path
+    """
     files = list()
     files_string = "Choose file to import data from by entering relevant number:\n"
     for filename in os.listdir(os.path.normpath(dir)):
@@ -136,7 +147,12 @@ def get_rota(dir):
     print("Chosen file: {}".format(f))
     return f
     
-def parse_rota(f): 
+def parse_rota(f):
+    """ Parses excel file to create dictionary of people and shifts
+    
+    Returns:
+        people, dictionary of people paired with relevant list of shifts
+    """
     wb = openpyxl.load_workbook(f)
     sheets = wb.get_sheet_names()
     weeks = list()
@@ -177,7 +193,16 @@ def parse_rota(f):
     return people
             
 def convert_day(wkstart, day, times): 
-    # converts day to calendar details
+    """ converts day details to useable calendar details 
+    Input:
+        wkstart, the date the week starts on
+        day, the day of the week
+        times, contents of the day field in spreadsheet 
+        (usually a time format like 9--6)
+    Returns:
+        output, list of [start date, event title, end date, all day status]
+        Note, dates include the time also, i.e. start and end time
+    """
     index = g_weekdays.index(day)
     start_time = float()
     end_time = float()
@@ -221,8 +246,12 @@ def convert_day(wkstart, day, times):
     return output
     
 def get_cal_details(chosen_cal):
-    # google calendar api shenanigans!
-    # returns [calendar name, id, timezone]
+    """ Get the details of the Google calendar we're writing to using API
+    Input:
+        chosen_cal, name of target Google Calendar
+    Returns:
+        cal_details, list of [calendar name, calendar id code, timezone]
+    """
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build("calendar", "v3", http=http)
@@ -241,17 +270,22 @@ def get_cal_details(chosen_cal):
     return cal_details
     
 def write_cal_event(event, id):
-    # google calendar api shenanigans!
-    # returns [calendar name, id, timezone]
+    """ Use Google Calendar API to create an event
+    Input:
+        event, nested dictionary containing details of event
+        id, Google Calendar ID of target calendar
+    """
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build("calendar", "v3", http=http)
     
     event = service.events().insert(calendarId = id, body = event).execute()
-    print("Event created: {}".format(event.get('htmlLink')))
-    return
+    return event.get('htmlLink')
     
 class Rota_Calendar(object):
+    """
+    Object that we're creating, i.e. the calendar being sent to Google
+    """
     def __init__(self, config_object):
         self.config = config_object
         self.source_folder = self.get_config_line("Source Folder")
@@ -261,10 +295,23 @@ class Rota_Calendar(object):
         self.event_location = self.get_config_line("Event Location")
         
     def get_config_line(self, key):
+        """ Returns value for supplied config key in DEFAULT config
+        Input:
+            key, the config parameter being located
+        Returns:
+            the value paired with the input key in config
+        """
         print("{}: {}".format(key, self.config.get("DEFAULT", key))) # debug
         return self.config.get("DEFAULT", key)
         
     def write_to_cal(self, dict, name, t_cal, prefix):
+        """ Writes individual event to target Google Calendar
+        Input:
+            dict, dictionary of all people and their shift lists
+            name, name of Person whose shifts we're interested in
+            t_cal, name of target Google Calendar
+            prefix, ???
+        """
         cal_details = get_cal_details(t_cal)
         if cal_details:
             days = dict[name]        
@@ -297,13 +344,14 @@ class Rota_Calendar(object):
                         event["start"]["dateTime"] = startTime
                         event["end"]["dateTime"] = endTime
                         
-                    write_cal_event(event, cal_id)
+                    event_url = write_cal_event(event, cal_id)
                     f.write("{}\n".format(day))
+                    print("{}({})\n".format(day, event_url))
 
     def run(self):
         rota_file = get_rota(find_directory(self.source_folder))
         rota_dict = parse_rota(rota_file)
-        #self.write_to_cal(rota_dict, self.person, self.cal_name, "")
+        self.write_to_cal(rota_dict, self.person, self.cal_name, "")
         print("Done.")
     
 rota_calendar = Rota_Calendar(get_configs())
