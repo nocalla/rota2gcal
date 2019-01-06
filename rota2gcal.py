@@ -76,17 +76,26 @@ def get_credentials(): # Google Calendar API Credential stuff - don"t mess with!
 # end of Google credentials Stuff
 
 def get_configs():
-    """ Retrieve all configuration parameters.
+    """ Retrieve all configuration parameters by reading config file
     
     Returns:
         config, the obtained configparser object
     """
     conf_files = ["rota2gcal.conf"]
     if not os.path.exists("rota2gcal.conf"):
-        logging.error("\nError: Can't find configuration file: rota2gcal.conf")
+        create_empty_config()
+        raise Exception("Can't find configuration file: rota2gcal.conf\n" +
+                "New configuration file created.\nPlease enter configuration details " +
+                "into rota2gcal.conf and run this file again.")
     config = configparser.ConfigParser()
     config.read(conf_files, encoding="utf-8")
     return config
+    
+def create_empty_config():
+    """ Creates a template rota2gcal.conf """
+    with open("rota2gcal.conf", "w") as f:
+        f.write("[DEFAULT]\nSource Folder =\nCalendar Name =\n"+
+        "Shared Calendar URL =\nPerson =\nEvent Location =")
 
 def find_directory(filepath):
     """ finds the downloads folder for the active user if filepath is not set
