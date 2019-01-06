@@ -46,7 +46,7 @@ This is how the script gets access to the calendar. You have to set yourself up 
     Person = Murgatroyd
     Event Location = Eiffel Tower
 ```
-+ Run the script again and you'll get a Google sign-in pop-up. Sign in and give it the permissions for accessing your calendar.
++ The first time you run the script in normal use you'll get a Google sign-in pop-up. Sign in and give it the permissions for accessing your calendar.
 
 ### 6. That's it!
 
