@@ -59,4 +59,4 @@ You're ready to go.
 + Watch as your calendar magically fills up
 
 ## Spreadsheet Format Details
-
+To do
