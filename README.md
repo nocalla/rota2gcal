@@ -25,7 +25,7 @@ This is where things will get a little difficult if you're not used to the comma
 
 ### 4. Activate Google Calendar API
 
-This is how the script gets access to the calendar. You have to set yourself up as a "developer" to get access to the calendar tools. Brief description here. 
+This is how the script gets access to the calendar. You have to set yourself up as a "developer" to get access to the calendar tools. Brief description here.
 + Go to the Google Developers Console and login.
 + Use your Gmail or Google credentials; create an account if needed
 + Click "Create Project" button
@@ -40,9 +40,9 @@ This is how the script gets access to the calendar. You have to set yourself up 
 + Now, edit the newly-created `rota2gcal.conf` file - this is where you set the name of the calendar you're writing to, the name of the person whose shifts you're looking for etc. Example configuration below. I'd recommend leaving the Source Folder blank, unless you download the timetable file to somewhere apart from the default Downloads folder on Windows. The Shared Calendar URL can be ignored too.
 ```
     [DEFAULT]
-    Source Folder = 
+    Source Folder =
     Calendar Name = Test Calendar
-    Shared Calendar URL = 
+    Shared Calendar URL =
     Person = Murgatroyd
     Event Location = Eiffel Tower
 ```
@@ -50,7 +50,7 @@ This is how the script gets access to the calendar. You have to set yourself up 
 
 ### 6. That's it!
 
-You're ready to go. 
+You're ready to go.
 
 ## Actual Use
 + Put the timetable file in the Source Folder or download folder
