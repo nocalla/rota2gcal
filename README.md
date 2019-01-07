@@ -1,5 +1,5 @@
 # rota2gcal
-This is a project that uploads a very specific timetable format to Google Calendar. Details of the format are in a below section.
+This is a project that uploads a very specific timetable format from an Excel spreadsheet to Google Calendar. Details of the format are in a below section.
 
 ## Getting started
 
@@ -59,4 +59,12 @@ You're ready to go.
 + Watch as your calendar magically fills up
 
 ## Spreadsheet Format Details
-To do
++ .xlsx format
++ `B1` shows the date that the current week starts on in the dd/mm/YYY format
++ Employee names are laid out in `column A`
++ The days of the week are laid out from `C2:H2`
++ The script ignores any cell with a formula in it
++ Each worksheet in the Excel workbook is named "Week 1", "Week 2", etc. This just indicates the order of the weeks and doesn't need to correspond to the official "Weeknumber" of the particular week in the calendar
++ Shifts must contain a double hyphen (i.e.: `--` ) between times, e.g. `9--6`
++ "hol" designates holidays - these will not be entered as events on the calendar
++ "off" designates days off - these will be entered as all-day events
