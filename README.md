@@ -3,11 +3,11 @@ This is a project that uploads a very specific timetable format from an Excel sp
 
 ## Getting started
 
-### 1. Download Python
+### 1. Download & Install Python
 
 + Download Python 3 directly from the Python Software Foundation's website: https://www.python.org/downloads/.
 
-+ Install it.
++ Install it, making sure to select the options to "Add Python to PATH" and the optional feature of installing "pip".
 
 ### 2. Download Project
 
