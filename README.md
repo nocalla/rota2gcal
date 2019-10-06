@@ -12,7 +12,7 @@ This is a project that uploads a very specific timetable format from an Excel sp
 ### 2. Download Project
 
 + Download the latest release from [here](https://github.com/nocalla/rota2gcal/releases). Really all you need is the `rota2gcal.py` file, but the batch file is useful to run the script quickly on Windows.
-+ Extract the zip file to whatever location on your harddrive makes sense.
++ Extract the zip file to whatever location on your hard-drive makes sense.
 
 ### 3. Install prerequisites
 
@@ -32,7 +32,7 @@ This is how the script gets access to the calendar. You have to set yourself up 
 + Enter a Project Name (mutable, human-friendly string only used in the console)
 + Enter a Project ID (immutable, must be unique and not already taken)
 + Once project has been created, click "Enable an API" button and enable "Google Calendar"
-+ You'll need to add Credentials to the project. There should be a button to enable those somewhere in the API site. 
++ You'll need to add Credentials to the project. There should be a button to enable those somewhere in the API site.
 + Once you've got the Credentials created, download the file and save it to the same folder as `rota2gcal.py` and rename it to `client_secret.json`.
 
 ### 5. Initialisation
