@@ -3,11 +3,11 @@ This is a project that uploads a very specific timetable format from an Excel sp
 
 ## Getting started
 
-### 1. Download Python
+### 1. Download & Install Python
 
 + Download Python 3 directly from the Python Software Foundation's website: https://www.python.org/downloads/.
 
-+ Install it.
++ Install it, making sure to select the options to "Add Python to PATH" and the optional feature of installing "pip".
 
 ### 2. Download Project
 
@@ -32,6 +32,8 @@ This is how the script gets access to the calendar. You have to set yourself up 
 + Enter a Project Name (mutable, human-friendly string only used in the console)
 + Enter a Project ID (immutable, must be unique and not already taken)
 + Once project has been created, click "Enable an API" button and enable "Google Calendar"
++ You'll need to add Credentials to the project. There should be a button to enable those somewhere in the API site. 
++ Once you've got the Credentials created, download the file and save it to the same folder as `rota2gcal.py` and rename it to `client_secret.json`.
 
 ### 5. Initialisation
 
@@ -47,6 +49,7 @@ This is how the script gets access to the calendar. You have to set yourself up 
     Event Location = Eiffel Tower
 ```
 + The first time you run the script in normal use you'll get a Google sign-in pop-up. Sign in and give it the permissions for accessing your calendar.
++ Make sure the `Calendar Name` field matches a calendar that you actually have in your Google Calendar.
 
 ### 6. That's it!
 
